@@ -39,6 +39,7 @@ MyTrackParameters::MyTrackParameters() :
 	m_trk_charge{},
 	m_trk_genStat{},
 	m_highest_weight{},
+	m_vertex_radius{},
 	m_mcp_momentum{},
 	m_mcp_d0{},
 	m_rec_d0_pion_mass{},
@@ -245,6 +246,7 @@ void MyTrackParameters::init()
 	m_pTTree->Branch("trk_GeneratorStatus", &m_trk_genStat);
 	m_pTTree->Branch("highest_weight", &m_highest_weight);
 	m_pTTree->Branch("track_charge", &m_trk_charge);
+	m_pTTree->Branch("vertex_radius", &m_vertex_radius);
 	m_pTTree->Branch("mcp_momentum", &m_mcp_momentum);
 	m_pTTree->Branch("mcp_d0", &m_mcp_d0);
 	m_pTTree->Branch("rec_d0_pion_mass", &m_rec_d0_pion_mass);
@@ -356,6 +358,7 @@ void MyTrackParameters::Clear()
 	m_trk_charge.clear();
 	m_trk_genStat.clear();
 	m_highest_weight.clear();
+	m_vertex_radius.clear();
 	m_mcp_momentum.clear();
 
 	m_mcp_d0.clear();
@@ -498,6 +501,7 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			float q = mcpLinked->getCharge() ;
 			helix.Initialize_VP( pos , mom, q,  _bField ) ;
 			float momentum = std::sqrt(pow(mom[0],2)+pow(mom[1],2)+pow(mom[2],2));
+			m_vertex_radius.push_back(std::sqrt(pow(pos[0],2)+pow(pos[1],2)+pow(pos[2],2)));
 			m_mcp_momentum.push_back(momentum);
 
 			double d0mcp = helix.getD0() ;
