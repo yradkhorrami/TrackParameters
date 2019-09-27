@@ -248,7 +248,7 @@ void MyTrackParameters::init()
 	m_pTTree->Branch("highest_weight", &m_highest_weight);
 	m_pTTree->Branch("track_charge", &m_trk_charge);
 	m_pTTree->Branch("vertex_radius", &m_vertex_radius);
-	m_pTTree->Branch("vertex_radius", &m_vertex_rho);
+	m_pTTree->Branch("vertex_rho", &m_vertex_rho);
 	m_pTTree->Branch("mcp_momentum", &m_mcp_momentum);
 	m_pTTree->Branch("mcp_d0", &m_mcp_d0);
 	m_pTTree->Branch("rec_d0_pion_mass", &m_rec_d0_pion_mass);
