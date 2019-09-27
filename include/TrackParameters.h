@@ -109,6 +109,7 @@ virtual void end() ;
 	FloatVector					m_highest_weight{};
 	FloatVector					m_trk_charge{};
 	FloatVector					m_vertex_radius{};
+	FloatVector					m_vertex_rho{};
 	FloatVector					m_mcp_momentum{};
 	FloatVector					m_mcp_d0{};
 	FloatVector					m_rec_d0_pion_mass{};
