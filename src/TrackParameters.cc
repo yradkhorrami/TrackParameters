@@ -37,6 +37,8 @@ MyTrackParameters::MyTrackParameters() :
 
 	m_trk_pdg{},
 	m_trk_charge{},
+	m_trk_genStat{},
+	m_highest_weight{},
 	m_mcp_momentum{},
 	m_mcp_d0{},
 	m_rec_d0_pion_mass{},
@@ -240,6 +242,8 @@ void MyTrackParameters::init()
 	m_pTTree->Branch("event", &m_nEvt, "event/I");
 
 	m_pTTree->Branch("track_PDG", &m_trk_pdg);
+	m_pTTree->Branch("trk_GeneratorStatus", &m_trk_genStat);
+	m_pTTree->Branch("highest_weight", &m_highest_weight);
 	m_pTTree->Branch("track_charge", &m_trk_charge);
 	m_pTTree->Branch("mcp_momentum", &m_mcp_momentum);
 	m_pTTree->Branch("mcp_d0", &m_mcp_d0);
@@ -290,7 +294,7 @@ void MyTrackParameters::init()
 	m_pTTree->Branch("NDF", &m_ndf);
 	m_pTTree->Branch("CHI2", &m_chi2);
 	m_pTTree->Branch("CHI2_NDF", &m_chi2_ndf);
-	
+
 }
 
 
@@ -350,6 +354,8 @@ void MyTrackParameters::Clear()
 
 	m_trk_pdg.clear();
 	m_trk_charge.clear();
+	m_trk_genStat.clear();
+	m_highest_weight.clear();
 	m_mcp_momentum.clear();
 
 	m_mcp_d0.clear();
@@ -468,8 +474,10 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 					imcpmax = imcp;
 				}
 			}
+			m_highest_weight.push_back(maxweight);
 			streamlog_out(DEBUG) << " ===> MCParticle with max weight for track " << i << " is " << imcpmax << std::endl ;
 			MCParticle *mcpLinked = (MCParticle *) mcpvec.at(imcpmax);
+			m_trk_genStat.push_back(mcpLinked->getGeneratorStatus());
 			int trk_PDG = mcpLinked->getPDG();
 			m_trk_pdg.push_back(trk_PDG);
 			float trk_charge = mcpLinked->getCharge();
@@ -484,14 +492,14 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			mom[0] = mcpLinked->getMomentum()[0] ;
 			mom[1] = mcpLinked->getMomentum()[1] ;
 			mom[2] = mcpLinked->getMomentum()[2] ;
-			
+
 
 			gear::Vector3D p2( mcpLinked->getMomentum()[0], mcpLinked->getMomentum()[1], mcpLinked->getMomentum()[2] );
 			float q = mcpLinked->getCharge() ;
 			helix.Initialize_VP( pos , mom, q,  _bField ) ;
 			float momentum = std::sqrt(pow(mom[0],2)+pow(mom[1],2)+pow(mom[2],2));
 			m_mcp_momentum.push_back(momentum);
-			
+
 			double d0mcp = helix.getD0() ;
 			double ommcp = helix.getOmega() ;
 			double phmcp = helix.getPhi0() ;
@@ -503,7 +511,7 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			m_mcp_Phi.push_back(phmcp);
 			m_mcp_tanLambda.push_back(tLmcp);
 			m_mcp_z0.push_back(z0mcp);
-			
+
 			if (std::abs(trk_PDG) == 11)
 			{
 				trueTrack = dynamic_cast<EVENT::Track*>(trkCollectionElectron->getElementAt(i));

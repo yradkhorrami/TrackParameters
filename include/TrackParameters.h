@@ -105,6 +105,8 @@ virtual void end() ;
 	float						_bField = 0.0;
 
 	IntVector					m_trk_pdg{};
+	IntVector					m_trk_genStat{};
+	FloatVector					m_highest_weight{};
 	FloatVector					m_trk_charge{};
 	FloatVector					m_mcp_momentum{};
 	FloatVector					m_mcp_d0{};
