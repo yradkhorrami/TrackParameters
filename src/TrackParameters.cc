@@ -239,7 +239,7 @@ void MyTrackParameters::init()
 
 	m_pTFile = new TFile(m_rootFile.c_str(), "recreate");
 	m_pTTree = new TTree("TrackParameters", "TrackParameters");
-	m_pTTree->SetDirectory(m_pTFile);
+	m_pTTree->SetDirectory(0);
 	m_pTTree->Branch("run", &m_nRun, "run/I");
 	m_pTTree->Branch("event", &m_nEvt, "event/I");
 
@@ -460,15 +460,15 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 		const EVENT::LCCollection *trkCollectionProton = pLCEvent->getCollection(m_MarlinTrkTracksPROTON);
 		const EVENT::LCCollection *relCollection = pLCEvent->getCollection(m_TrackMCParticleRelCol);
 
-		LCRelationNavigator mc2trackNav(pLCEvent->getCollection( m_TrackMCParticleRelCol ));
-		streamlog_out(DEBUG) << " got mc2trackNav from " << mc2trackNav.getFromType() << " to " << mc2trackNav.getToType() << std::endl;
+		LCRelationNavigator track2mcNav(pLCEvent->getCollection( m_TrackMCParticleRelCol ));
+		streamlog_out(DEBUG) << " got track2mcNav from " << track2mcNav.getFromType() << " to " << track2mcNav.getToType() << std::endl;
 
 		for (unsigned int i = 0, ntrks = trkCollection->getNumberOfElements(); i < ntrks; ++i)
 		{
 			auto origTrack = dynamic_cast<EVENT::Track*>(trkCollection->getElementAt(i));
 			Track *trueTrack;// = dynamic_cast<EVENT::Track*>(trkCollection->getElementAt(i));
-			const EVENT::LCObjectVec& mcpvec = mc2trackNav.getRelatedToObjects(origTrack);
-			const EVENT::FloatVec&  trackweightvec = mc2trackNav.getRelatedToWeights(origTrack);
+			const EVENT::LCObjectVec& mcpvec = track2mcNav.getRelatedToObjects(origTrack);
+			const EVENT::FloatVec&  trackweightvec = track2mcNav.getRelatedToWeights(origTrack);
 
 			double maxweight = 0.;
 			int imcpmax = 0;
@@ -501,8 +501,7 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 
 
 			gear::Vector3D p2( mcpLinked->getMomentum()[0], mcpLinked->getMomentum()[1], mcpLinked->getMomentum()[2] );
-			float q = mcpLinked->getCharge() ;
-			helix.Initialize_VP( pos , mom, q,  _bField ) ;
+			helix.Initialize_VP( pos , mom, trk_charge,  _bField ) ;
 			float momentum = std::sqrt(pow(mom[0],2)+pow(mom[1],2)+pow(mom[2],2));
 			m_vertex_radius.push_back(std::sqrt(pow(pos[0],2)+pow(pos[1],2)+pow(pos[2],2)));
 			m_vertex_rho.push_back(std::sqrt(pow(pos[0],2)+pow(pos[1],2)));
