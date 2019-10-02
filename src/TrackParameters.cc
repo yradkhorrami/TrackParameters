@@ -463,7 +463,30 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 		LCRelationNavigator track2mcNav(pLCEvent->getCollection( m_TrackMCParticleRelCol ));
 		streamlog_out(DEBUG) << " got track2mcNav from " << track2mcNav.getFromType() << " to " << track2mcNav.getToType() << std::endl;
 
-		for (unsigned int i = 0, ntrks = trkCollection->getNumberOfElements(); i < ntrks; ++i)
+		unsigned int ntrks = trkCollection->getNumberOfElements();
+		unsigned int ntrksPion = trkCollectionPion->getNumberOfElements();
+		unsigned int ntrksKaon = trkCollectionKaon->getNumberOfElements();
+		unsigned int ntrksMuon = trkCollectionMuon->getNumberOfElements();
+		unsigned int ntrksElectron = trkCollectionElectron->getNumberOfElements();
+		unsigned int ntrksProton = trkCollectionProton->getNumberOfElements();
+
+		if (ntrksPion != ntrks)
+			streamlog_out(DEBUG) << " <<<<<=====  Number of Pion tracks mismatch with the number of original track  =====>>>>>" << std::endl;
+
+		if (ntrksKaon != ntrks)
+			streamlog_out(DEBUG) << " <<<<<=====  Number of Kaon tracks mismatch with the number of original track  =====>>>>>" << std::endl;
+
+		if (ntrksMuon != ntrks)
+			streamlog_out(DEBUG) << " <<<<<=====  Number of Muon tracks mismatch with the number of original track  =====>>>>>" << std::endl;
+
+		if (ntrksElectron != ntrks)
+			streamlog_out(DEBUG) << " <<<<<=====  Number of Electron tracks mismatch with the number of original track  =====>>>>>" << std::endl;
+
+		if (ntrksProton != ntrks)
+			streamlog_out(DEBUG) << " <<<<<=====  Number of Proton tracks mismatch with the number of original track  =====>>>>>" << std::endl;
+
+		float order_err = 0.1;
+		for (unsigned int i = 0; i < ntrks; ++i)
 		{
 			auto origTrack = dynamic_cast<EVENT::Track*>(trkCollection->getElementAt(i));
 			Track *trueTrack;
@@ -560,6 +583,12 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			m_rec_Phi_true_mass.push_back(rec_Phi_true_mass);
 			m_rec_tanLambda_true_mass.push_back(rec_tanLambda_true_mass);
 			m_rec_z0_true_mass.push_back(rec_z0_true_mass);
+
+			if (abs(rec_Omega_pion_mass - rec_Omega_true_mass) / rec_Omega_pion_mass > order_err)
+				streamlog_out(DEBUG) << " <<<<<=====  refitted track mismatch to the original track :: Omega ;  SORTING PROBLEM  =====>>>>>" << std::endl;
+
+			if (abs(rec_tanLambda_pion_mass - rec_tanLambda_true_mass) / rec_tanLambda_pion_mass > order_err)
+				streamlog_out(DEBUG) << " <<<<<=====  refitted track mismatch to the original track :: tanLambda ;  SORTING PROBLEM  =====>>>>>" << std::endl;
 
 			float residual_d0_pion_mass = rec_d0_pion_mass - d0mcp;
 			float residual_Omega_pion_mass = rec_Omega_pion_mass - ommcp;
