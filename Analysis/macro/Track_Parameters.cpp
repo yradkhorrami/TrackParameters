@@ -31,7 +31,7 @@ string input_tree_name = "TrackParameters";
 TTree *tree = (TTree*)file->Get(input_tree_name.c_str());
 int nEntries = tree->GetEntries();
 
-float p_min = 4;
+float p_min = 0;
 float p_max = 1000;
 int true_pdg = 321;
 
@@ -360,65 +360,65 @@ for (int i = 0; i < nEntries; i++)
 	tree->GetEntry(i);
 	for (int track_i = 0; track_i < (track_PDG->size()); track_i++)
 	{
-		if ((vertex_radius->at(track_i) >= r_cut) || (vertex_rho->at(track_i) >= rho_cut) || (highest_weight->at(track_i) < weight_cut))
+		if ((vertex_radius->at(track_i) >= r_cut) || (vertex_rho->at(track_i) >= rho_cut) || (highest_weight->at(track_i) < weight_cut) || abs(track_PDG->at(track_i)) != true_pdg)
 			continue;
 
+		hist_momentum->Fill(momentum->at(track_i));
 		if (track_PDG->at(track_i) == true_pdg)
-		{
-			hist_momentum->Fill(momentum->at(track_i));
 			hist_momentum_Par->Fill(momentum->at(track_i));
-		}
+
 		if (track_PDG->at(track_i) == -1 * true_pdg)
-		{
-			hist_momentum->Fill(momentum->at(track_i));
 			hist_momentum_aPar->Fill(momentum->at(track_i));
-		}
+
 		if (momentum->at(track_i) >= p_min && momentum->at(track_i) <= p_max)
 		{
+			hist_residual_d0_pion_mass->Fill(residual_d0_pion_mass->at(track_i));
+			hist_residual_Omega_pion_mass->Fill(residual_Omega_pion_mass->at(track_i));
+			hist_residual_Phi_pion_mass->Fill(residual_Phi_pion_mass->at(track_i));
+			hist_residual_tanLambda_pion_mass->Fill(residual_tanLambda_pion_mass->at(track_i));
+			hist_residual_z0_pion_mass->Fill(residual_z0_pion_mass->at(track_i));
+			hist_residual_d0_true_mass->Fill(residual_d0_true_mass->at(track_i));
+			hist_residual_Omega_true_mass->Fill(residual_Omega_true_mass->at(track_i));
+			hist_residual_Phi_true_mass->Fill(residual_Phi_true_mass->at(track_i));
+			hist_residual_tanLambda_true_mass->Fill(residual_tanLambda_true_mass->at(track_i));
+			hist_residual_z0_true_mass->Fill(residual_z0_true_mass->at(track_i));
+
+			hist_uncertainty_d0_pion_mass->Fill(uncertainty_d0_pion_mass->at(track_i));
+			hist_uncertainty_Omega_pion_mass->Fill(uncertainty_Omega_pion_mass->at(track_i));
+			hist_uncertainty_Phi_pion_mass->Fill(uncertainty_Phi_pion_mass->at(track_i));
+			hist_uncertainty_tanLambda_pion_mass->Fill(uncertainty_tanLambda_pion_mass->at(track_i));
+			hist_uncertainty_z0_pion_mass->Fill(uncertainty_z0_pion_mass->at(track_i));
+			hist_uncertainty_d0_true_mass->Fill(uncertainty_d0_true_mass->at(track_i));
+			hist_uncertainty_Omega_true_mass->Fill(uncertainty_Omega_true_mass->at(track_i));
+			hist_uncertainty_Phi_true_mass->Fill(uncertainty_Phi_true_mass->at(track_i));
+			hist_uncertainty_tanLambda_true_mass->Fill(uncertainty_tanLambda_true_mass->at(track_i));
+			hist_uncertainty_z0_true_mass->Fill(uncertainty_z0_true_mass->at(track_i));
+
+			hist_pull_d0_pion_mass->Fill(pull_d0_pion_mass->at(track_i));
+			hist_pull_Omega_pion_mass->Fill(pull_Omega_pion_mass->at(track_i));
+			hist_pull_Phi_pion_mass->Fill(pull_Phi_pion_mass->at(track_i));
+			hist_pull_tanLambda_pion_mass->Fill(pull_tanLambda_pion_mass->at(track_i));
+			hist_pull_z0_pion_mass->Fill(pull_z0_pion_mass->at(track_i));
+			hist_pull_d0_true_mass->Fill(pull_d0_true_mass->at(track_i));
+			hist_pull_Omega_true_mass->Fill(pull_Omega_true_mass->at(track_i));
+			hist_pull_Phi_true_mass->Fill(pull_Phi_true_mass->at(track_i));
+			hist_pull_tanLambda_true_mass->Fill(pull_tanLambda_true_mass->at(track_i));
+			hist_pull_z0_true_mass->Fill(pull_z0_true_mass->at(track_i));
+
 			if (track_PDG->at(track_i) == true_pdg)
 			{
-				hist_residual_d0_pion_mass->Fill(residual_d0_pion_mass->at(track_i));
-				hist_residual_Omega_pion_mass->Fill(residual_Omega_pion_mass->at(track_i));
-				hist_residual_Phi_pion_mass->Fill(residual_Phi_pion_mass->at(track_i));
-				hist_residual_tanLambda_pion_mass->Fill(residual_tanLambda_pion_mass->at(track_i));
-				hist_residual_z0_pion_mass->Fill(residual_z0_pion_mass->at(track_i));
-				hist_residual_d0_true_mass->Fill(residual_d0_true_mass->at(track_i));
-				hist_residual_Omega_true_mass->Fill(residual_Omega_true_mass->at(track_i));
-				hist_residual_Phi_true_mass->Fill(residual_Phi_true_mass->at(track_i));
-				hist_residual_tanLambda_true_mass->Fill(residual_tanLambda_true_mass->at(track_i));
-				hist_residual_z0_true_mass->Fill(residual_z0_true_mass->at(track_i));
 				hist_residual_d0_true_mass_Par->Fill(residual_d0_true_mass->at(track_i));
 				hist_residual_Omega_true_mass_Par->Fill(residual_Omega_true_mass->at(track_i));
 				hist_residual_Phi_true_mass_Par->Fill(residual_Phi_true_mass->at(track_i));
 				hist_residual_tanLambda_true_mass_Par->Fill(residual_tanLambda_true_mass->at(track_i));
 				hist_residual_z0_true_mass_Par->Fill(residual_z0_true_mass->at(track_i));
 
-				hist_uncertainty_d0_pion_mass->Fill(uncertainty_d0_pion_mass->at(track_i));
-				hist_uncertainty_Omega_pion_mass->Fill(uncertainty_Omega_pion_mass->at(track_i));
-				hist_uncertainty_Phi_pion_mass->Fill(uncertainty_Phi_pion_mass->at(track_i));
-				hist_uncertainty_tanLambda_pion_mass->Fill(uncertainty_tanLambda_pion_mass->at(track_i));
-				hist_uncertainty_z0_pion_mass->Fill(uncertainty_z0_pion_mass->at(track_i));
-				hist_uncertainty_d0_true_mass->Fill(uncertainty_d0_true_mass->at(track_i));
-				hist_uncertainty_Omega_true_mass->Fill(uncertainty_Omega_true_mass->at(track_i));
-				hist_uncertainty_Phi_true_mass->Fill(uncertainty_Phi_true_mass->at(track_i));
-				hist_uncertainty_tanLambda_true_mass->Fill(uncertainty_tanLambda_true_mass->at(track_i));
-				hist_uncertainty_z0_true_mass->Fill(uncertainty_z0_true_mass->at(track_i));
 				hist_uncertainty_d0_true_mass_Par->Fill(uncertainty_d0_true_mass->at(track_i));
 				hist_uncertainty_Omega_true_mass_Par->Fill(uncertainty_Omega_true_mass->at(track_i));
 				hist_uncertainty_Phi_true_mass_Par->Fill(uncertainty_Phi_true_mass->at(track_i));
 				hist_uncertainty_tanLambda_true_mass_Par->Fill(uncertainty_tanLambda_true_mass->at(track_i));
 				hist_uncertainty_z0_true_mass_Par->Fill(uncertainty_z0_true_mass->at(track_i));
 
-				hist_pull_d0_pion_mass->Fill(pull_d0_pion_mass->at(track_i));
-				hist_pull_Omega_pion_mass->Fill(pull_Omega_pion_mass->at(track_i));
-				hist_pull_Phi_pion_mass->Fill(pull_Phi_pion_mass->at(track_i));
-				hist_pull_tanLambda_pion_mass->Fill(pull_tanLambda_pion_mass->at(track_i));
-				hist_pull_z0_pion_mass->Fill(pull_z0_pion_mass->at(track_i));
-				hist_pull_d0_true_mass->Fill(pull_d0_true_mass->at(track_i));
-				hist_pull_Omega_true_mass->Fill(pull_Omega_true_mass->at(track_i));
-				hist_pull_Phi_true_mass->Fill(pull_Phi_true_mass->at(track_i));
-				hist_pull_tanLambda_true_mass->Fill(pull_tanLambda_true_mass->at(track_i));
-				hist_pull_z0_true_mass->Fill(pull_z0_true_mass->at(track_i));
 				hist_pull_d0_true_mass_Par->Fill(pull_d0_true_mass->at(track_i));
 				hist_pull_Omega_true_mass_Par->Fill(pull_Omega_true_mass->at(track_i));
 				hist_pull_Phi_true_mass_Par->Fill(pull_Phi_true_mass->at(track_i));
@@ -428,48 +428,18 @@ for (int i = 0; i < nEntries; i++)
 
 			if (track_PDG->at(track_i) == -1 * true_pdg)
 			{
-				hist_residual_d0_pion_mass->Fill(residual_d0_pion_mass->at(track_i));
-				hist_residual_Omega_pion_mass->Fill(residual_Omega_pion_mass->at(track_i));
-				hist_residual_Phi_pion_mass->Fill(residual_Phi_pion_mass->at(track_i));
-				hist_residual_tanLambda_pion_mass->Fill(residual_tanLambda_pion_mass->at(track_i));
-				hist_residual_z0_pion_mass->Fill(residual_z0_pion_mass->at(track_i));
-				hist_residual_d0_true_mass->Fill(residual_d0_true_mass->at(track_i));
-				hist_residual_Omega_true_mass->Fill(residual_Omega_true_mass->at(track_i));
-				hist_residual_Phi_true_mass->Fill(residual_Phi_true_mass->at(track_i));
-				hist_residual_tanLambda_true_mass->Fill(residual_tanLambda_true_mass->at(track_i));
-				hist_residual_z0_true_mass->Fill(residual_z0_true_mass->at(track_i));
 				hist_residual_d0_true_mass_aPar->Fill(residual_d0_true_mass->at(track_i));
 				hist_residual_Omega_true_mass_aPar->Fill(residual_Omega_true_mass->at(track_i));
 				hist_residual_Phi_true_mass_aPar->Fill(residual_Phi_true_mass->at(track_i));
 				hist_residual_tanLambda_true_mass_aPar->Fill(residual_tanLambda_true_mass->at(track_i));
 				hist_residual_z0_true_mass_aPar->Fill(residual_z0_true_mass->at(track_i));
 
-				hist_uncertainty_d0_pion_mass->Fill(uncertainty_d0_pion_mass->at(track_i));
-				hist_uncertainty_Omega_pion_mass->Fill(uncertainty_Omega_pion_mass->at(track_i));
-				hist_uncertainty_Phi_pion_mass->Fill(uncertainty_Phi_pion_mass->at(track_i));
-				hist_uncertainty_tanLambda_pion_mass->Fill(uncertainty_tanLambda_pion_mass->at(track_i));
-				hist_uncertainty_z0_pion_mass->Fill(uncertainty_z0_pion_mass->at(track_i));
-				hist_uncertainty_d0_true_mass->Fill(uncertainty_d0_true_mass->at(track_i));
-				hist_uncertainty_Omega_true_mass->Fill(uncertainty_Omega_true_mass->at(track_i));
-				hist_uncertainty_Phi_true_mass->Fill(uncertainty_Phi_true_mass->at(track_i));
-				hist_uncertainty_tanLambda_true_mass->Fill(uncertainty_tanLambda_true_mass->at(track_i));
-				hist_uncertainty_z0_true_mass->Fill(uncertainty_z0_true_mass->at(track_i));
 				hist_uncertainty_d0_true_mass_aPar->Fill(uncertainty_d0_true_mass->at(track_i));
 				hist_uncertainty_Omega_true_mass_aPar->Fill(uncertainty_Omega_true_mass->at(track_i));
 				hist_uncertainty_Phi_true_mass_aPar->Fill(uncertainty_Phi_true_mass->at(track_i));
 				hist_uncertainty_tanLambda_true_mass_aPar->Fill(uncertainty_tanLambda_true_mass->at(track_i));
 				hist_uncertainty_z0_true_mass_aPar->Fill(uncertainty_z0_true_mass->at(track_i));
 
-				hist_pull_d0_pion_mass->Fill(pull_d0_pion_mass->at(track_i));
-				hist_pull_Omega_pion_mass->Fill(pull_Omega_pion_mass->at(track_i));
-				hist_pull_Phi_pion_mass->Fill(pull_Phi_pion_mass->at(track_i));
-				hist_pull_tanLambda_pion_mass->Fill(pull_tanLambda_pion_mass->at(track_i));
-				hist_pull_z0_pion_mass->Fill(pull_z0_pion_mass->at(track_i));
-				hist_pull_d0_true_mass->Fill(pull_d0_true_mass->at(track_i));
-				hist_pull_Omega_true_mass->Fill(pull_Omega_true_mass->at(track_i));
-				hist_pull_Phi_true_mass->Fill(pull_Phi_true_mass->at(track_i));
-				hist_pull_tanLambda_true_mass->Fill(pull_tanLambda_true_mass->at(track_i));
-				hist_pull_z0_true_mass->Fill(pull_z0_true_mass->at(track_i));
 				hist_pull_d0_true_mass_aPar->Fill(pull_d0_true_mass->at(track_i));
 				hist_pull_Omega_true_mass_aPar->Fill(pull_Omega_true_mass->at(track_i));
 				hist_pull_Phi_true_mass_aPar->Fill(pull_Phi_true_mass->at(track_i));

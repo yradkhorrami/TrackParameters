@@ -466,7 +466,7 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 		for (unsigned int i = 0, ntrks = trkCollection->getNumberOfElements(); i < ntrks; ++i)
 		{
 			auto origTrack = dynamic_cast<EVENT::Track*>(trkCollection->getElementAt(i));
-			Track *trueTrack;// = dynamic_cast<EVENT::Track*>(trkCollection->getElementAt(i));
+			Track *trueTrack;
 			const EVENT::LCObjectVec& mcpvec = track2mcNav.getRelatedToObjects(origTrack);
 			const EVENT::FloatVec&  trackweightvec = track2mcNav.getRelatedToWeights(origTrack);
 
@@ -500,7 +500,7 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			mom[2] = mcpLinked->getMomentum()[2] ;
 
 
-			gear::Vector3D p2( mcpLinked->getMomentum()[0], mcpLinked->getMomentum()[1], mcpLinked->getMomentum()[2] );
+//			gear::Vector3D p2( mcpLinked->getMomentum()[0], mcpLinked->getMomentum()[1], mcpLinked->getMomentum()[2] );
 			helix.Initialize_VP( pos , mom, trk_charge,  _bField ) ;
 			float momentum = std::sqrt(pow(mom[0],2)+pow(mom[1],2)+pow(mom[2],2));
 			m_vertex_radius.push_back(std::sqrt(pow(pos[0],2)+pow(pos[1],2)+pow(pos[2],2)));
