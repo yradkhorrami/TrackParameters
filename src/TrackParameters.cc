@@ -500,7 +500,6 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			mom[2] = mcpLinked->getMomentum()[2] ;
 
 
-//			gear::Vector3D p2( mcpLinked->getMomentum()[0], mcpLinked->getMomentum()[1], mcpLinked->getMomentum()[2] );
 			helix.Initialize_VP( pos , mom, trk_charge,  _bField ) ;
 			float momentum = std::sqrt(pow(mom[0],2)+pow(mom[1],2)+pow(mom[2],2));
 			m_vertex_radius.push_back(std::sqrt(pow(pos[0],2)+pow(pos[1],2)+pow(pos[2],2)));
