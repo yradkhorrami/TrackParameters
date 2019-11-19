@@ -99,56 +99,7 @@
     </execute>
     <!-- ***** Global section ***** -->
     <global>
-        <parameter name="LCIOInputFiles"> /nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_10_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_11_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_12_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_13_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_14_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_15_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_16_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_17_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_18_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_19_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_1_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_20_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_21_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_22_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_23_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_24_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_25_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_26_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_27_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_28_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_29_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_2_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_30_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_31_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_32_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_33_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_34_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_35_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_36_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_37_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_38_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_39_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_3_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_40_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_41_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_42_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_43_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_44_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_45_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_46_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_47_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_48_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_49_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_4_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_50_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_5_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_6_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_7_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_8_REC.slcio
-/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_9_REC.slcio</parameter>
+        <parameter name="LCIOInputFiles"> ***.slcio</parameter>
         <parameter name="MaxRecordNumber" value="0" />
         <parameter name="SkipNEvents" value="0" />
         <parameter name="SupressCheck" value="false" />
