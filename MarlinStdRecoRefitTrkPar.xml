@@ -1,0 +1,471 @@
+<marlin>
+    <constants>
+        <!-- ***** Global constant for reconstruction ***** -->
+        <!-- The lcgeo directory where to look for the ILD model -->
+        <constant name="lcgeo_DIR" value="/cvmfs/ilc.desy.de/sw/x86_64_gcc49_sl6/v02-00-02/lcgeo/v00-16-03" />
+        <!-- ILD detector model -->
+        <constant name="DetectorModel" value="ILD_l5_o1_v02" />
+        <!-- The full compact file name -->
+        <constant name="CompactFile" value="${lcgeo_DIR}/ILD/compact/${DetectorModel}/${DetectorModel}.xml" />
+        <!-- ILD calibration file -->
+        <constant name="CalibrationFile" value="Calibration/Calibration_${DetectorModel}.xml" />
+        <!-- Whether to run the overlay background -->
+        <!-- WARNING : By setting this value to true (or True), you must ensure that the overlay files are set in the processor parameters -->
+        <constant name="RunOverlay" value="false" />
+        <!-- The center of mass energy (unit GeV). Mainly used for background overlay -->
+        <constant name="CMSEnergy" value="Unknown" />
+        <!-- The energy dependant parameters file to include -->
+        <constant name="EnergyParametersFile" value="Config/Parameters${CMSEnergy}GeV.xml" />
+        <!--Whether to run the BeamCal reconstruction-->
+        <constant name="RunBeamCalReco" value="true" />
+        <!--The BeamCal calibration constant, sim hit energy to calibrated calo hit energy-->
+        <constant name="BeamCalCalibrationFactor">79.6</constant>
+        <!-- ***** Input files constants ***** -->
+        <!-- Geometry model dependant calibration constants from external file -->
+        <constant name="EcalBarrelMip">0.0001525</constant>
+        <constant name="EcalEndcapMip">0.0001525</constant>
+        <constant name="EcalRingMip">0.0001525</constant>
+        <constant name="HcalBarrelMip">0.0004925</constant>
+        <constant name="HcalEndcapMip">0.0004775</constant>
+        <constant name="HcalRingMip">0.0004875</constant>
+        <constant name="EcalBarrelEnergyFactors">0.00616736103247 0.0125274552256</constant>
+        <constant name="EcalEndcapEnergyFactors">0.0064868449976 0.0131764071919</constant>
+        <constant name="EcalRingEnergyFactors">0.0064868449976 0.0131764071919</constant>
+        <constant name="HcalBarrelEnergyFactors">0.0216747245411</constant>
+        <constant name="HcalEndcapEnergyFactors">0.0217395864899</constant>
+        <constant name="HcalRingEnergyFactors">0.0271318181372</constant>
+        <constant name="MuonCalibration">56.7</constant>
+        <constant name="PandoraEcalToMip">153.846</constant>
+        <constant name="PandoraHcalToMip">43.29</constant>
+        <constant name="PandoraMuonToMip">10.3093</constant>
+        <constant name="PandoraEcalToEMScale">1.0</constant>
+        <constant name="PandoraHcalToEMScale">1.0</constant>
+        <constant name="PandoraEcalToHadBarrelScale">1.07522318318</constant>
+        <constant name="PandoraEcalToHadEndcapScale">1.07522318318</constant>
+        <constant name="PandoraHcalToHadScale">1.02821419758</constant>
+        <constant name="PandoraSoftwareCompensationWeights">1.66803 -0.031982 0.000192898 -0.0612971 0.00256256 -4.35641e-05 0.0558589 0.0601767 -0.0758029</constant>
+        <constant name="EcalTechnology" value="SiWEcal" />
+        <constant name="HcalTechnology" value="AHcal" />
+        <constant name="PandoraSettingsFile" value="/afs/desy.de/group/flc/pool/radkhory/flc/ILDConfig/StandardConfig/production/PandoraSettings/PandoraSettingsDefault.xml" />
+        <constant name="DropCollectionsECal">ECalBarrelScHitsEven ECalBarrelScHitsOdd ECalEndcapScHitsEven ECalEndcapScHitsOdd</constant>
+        <constant name="DropCollectionsHCal">HCalBarrelRPCHits HCalEndcapRPCHits HCalECRingRPCHits</constant>
+        <constant name="AdditionalDropCollectionsREC">${DropCollectionsECal} ${DropCollectionsHCal}</constant>
+        <constant name="dEdXErrorFactor">7.55</constant>
+        <constant name="dEdXSmearingFactor">0.035</constant>
+        <constant name="PidPDFFile" value="HighLevelReco/PIDFiles/LikelihoodPID_Standard_l5_v01.root" />
+        <constant name="PidWeightFiles">HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_02GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_03GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_04GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_05GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_06GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_07GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_08GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_09GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_10GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_11GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_12GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_13GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_14GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_15GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_16GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_17GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_18GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_19GeVP_clusterinfo.weights.xml HighLevelReco/PIDFiles/LowMomMuPiSeparation/TMVAClassification_BDTG_l5_20GeVP_clusterinfo.weights.xml</constant>
+        <constant name="ECalBarrelSimHitCollections">ECalBarrelSiHitsEven ECalBarrelSiHitsOdd</constant>
+        <constant name="ECalEndcapSimHitCollections">ECalEndcapSiHitsEven ECalEndcapSiHitsOdd</constant>
+        <constant name="ECalRingSimHitCollections">EcalEndcapRingCollection</constant>
+        <constant name="HCalBarrelSimHitCollections">HcalBarrelRegCollection</constant>
+        <constant name="HCalEndcapSimHitCollections">HcalEndcapsCollection</constant>
+        <constant name="HCalRingSimHitCollections">HcalEndcapRingCollection</constant>
+        <constant name="ECalSimHitCollections">${ECalBarrelSimHitCollections} ${ECalEndcapSimHitCollections} ${ECalRingSimHitCollections}</constant>
+        <constant name="HCalSimHitCollections">${HCalBarrelSimHitCollections} ${HCalEndcapSimHitCollections} ${HCalRingSimHitCollections}</constant>
+        <constant name="BeamCalBackgroundFile">HighLevelReco/BeamCalBackground/BeamCalBackground-E${CMSEnergy}-B3.5-RealisticNominalAntiDid.root</constant>
+        <!-- Energy dependant parameters -->
+        <constant name="ExpectedBgWW" value="0" />
+        <constant name="ExpectedBgWB" value="0" />
+        <constant name="ExpectedBgBW" value="0" />
+        <constant name="ExpectedBgBB" value="0" />
+        <constant name="LCFIPlusBeamspotConstraint" value="false" />
+        <constant name="BeamSizeX" value="0" />
+        <constant name="BeamSizeY" value="0" />
+        <constant name="BeamSizeZ" value="0" />
+        <!-- Output files constants -->
+        <constant name="OutputBaseName" value="/nfs/dust/ilc/user/radkhory/calib_samples/TrackerSamples/bb_91_ST" />
+        <constant name="AIDAFileName" value="${OutputBaseName}_AIDA" />
+        <constant name="RECOutputFile" value="${OutputBaseName}_REC.slcio" />
+        <constant name="DSTOutputFile" value="${OutputBaseName}_DST.slcio" />
+        <constant name="TrkOutputFile" value="${OutputBaseName}_TrkParameters.root" />
+    </constants>
+    <!-- ***** Execute section ***** -->
+    <execute>
+        <!-- Initialization processors -->
+        <processor name="MyAIDAProcessor" condition="" />
+        <processor name="InitDD4hep" condition="" />
+        <processor name="MyStatusmonitor" condition="" />
+        <!-- Output processors -->
+        <!--processor name="MyTrackSeparator" condition="" /-->
+        <processor name="MyRefitProcessorKaon" condition="" />
+        <processor name="MyRefitProcessorProton" condition="" />
+        <processor name="MyRefitProcessorElectron" condition="" />
+        <processor name="MyRefitProcessorMuon" condition="" />
+        <processor name="MyRefitProcessorPion" condition="" />
+        <!--processor name="MyTrackParameters" condition="" /-->
+        <processor name="MyLCIOOutputProcessor" condition="" />
+        <processor name="DSTOutput" condition="" />
+        <!--    <processor name="My_PfoAnalysis" />	-->
+    </execute>
+    <!-- ***** Global section ***** -->
+    <global>
+        <parameter name="LCIOInputFiles"> /nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_10_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_11_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_12_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_13_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_14_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_15_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_16_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_17_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_18_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_19_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_1_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_20_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_21_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_22_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_23_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_24_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_25_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_26_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_27_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_28_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_29_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_2_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_30_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_31_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_32_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_33_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_34_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_35_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_36_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_37_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_38_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_39_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_3_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_40_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_41_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_42_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_43_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_44_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_45_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_46_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_47_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_48_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_49_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_4_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_50_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_5_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_6_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_7_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_8_REC.slcio
+/nfs/dust/ilc/user/radkhory/calib_samples/REC/ILD_l/v10/REC/bb_91_9_REC.slcio</parameter>
+        <parameter name="MaxRecordNumber" value="0" />
+        <parameter name="SkipNEvents" value="0" />
+        <parameter name="SupressCheck" value="false" />
+        <parameter name="Verbosity" options="DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT">MESSAGE</parameter>
+        <parameter name="RandomSeed" value="1234567890" />
+        <parameter name="OutputSteeringFile" value="" />
+    </global>
+    <!-- Init processors : histograming, logging, geometry ... -->
+    <processor name="MyAIDAProcessor" type="AIDAProcessor">
+        <!--Processor that handles AIDA files. Creates on directory per processor.  Processors only need to create and fill the histograms, clouds and tuples. Needs to be the first ActiveProcessor-->
+        <!-- compression of output file 0: false >0: true (default) -->
+        <parameter name="Compress" type="int" value="1" />
+        <!-- filename without extension-->
+        <parameter name="FileName" type="string" value="${AIDAFileName}" />
+        <!-- type of output file xml (default) or root ( only OpenScientist)-->
+        <parameter name="FileType" type="string" value="root " />
+    </processor>
+    <processor name="InitDD4hep" type="InitializeDD4hep">
+        <!--InitializeDD4hep reads a compact xml file and initializes the DD4hep::LCDD object-->
+        <!--Name of the DD4hep compact xml file to load-->
+        <parameter name="DD4hepXMLFile" type="string">${CompactFile}</parameter>
+    </processor>
+    <processor name="MyStatusmonitor" type="Statusmonitor">
+        <!--Statusmonitor prints out information on running Marlin Job: Prints number of runs run and current number of the event. Counting is sequential and not the run or event ID.-->
+        <!--Print the event number every N events-->
+        <parameter name="HowOften" type="int">1</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <!-- <parameter name="Verbosity" type="string">MESSAGE </parameter> -->
+    </processor>
+    <!-- Write reconstruction output : REC, DST and PfoAnalysis -->
+    <processor name="MyLCIOOutputProcessor" type="LCIOOutputProcessor">
+        <!--   standard output: full reconstruction keep all collections -->
+        <parameter name="LCIOOutputFile" type="string">${RECOutputFile}</parameter>
+        <parameter name="LCIOWriteMode" type="string" value="WRITE_NEW" />
+        <parameter name="DropCollectionNames" type="StringVec">${AdditionalDropCollectionsREC}</parameter>
+        <!--parameter name="SplitFileSizekB" type="int" value="1992294"/-->
+    </processor>
+    <processor name="DSTOutput" type="LCIOOutputProcessor">
+        <!-- DST output: drop all hits, skim MCParticles and keep final Tracks, Clusters, Vertices and  ReconstructedParticles -->
+        <parameter name="LCIOOutputFile" type="string">${DSTOutputFile}</parameter>
+        <parameter name="DropCollectionTypes" type="StringVec">MCParticle SimTrackerHit SimCalorimeterHit TrackerHit TrackerHitPlane CalorimeterHit LCRelation Track LCFloatVec</parameter>
+        <parameter name="DropCollectionNames" type="StringVec">PandoraPFANewStartVertices</parameter>
+        <parameter name="FullSubsetCollections" type="StringVec" value="MCParticlesSkimmed" />
+        <parameter name="KeepCollectionNames" type="StringVec">MCParticle MarlinTrkTracks MCTruthMarlinTrkTracksLink MarlinTrkTracksKaon MarlinTrkTracksKaonMCP MarlinTrkTracksProton MarlinTrkTracksProtonMCP MarlinTrkTracksElectron MarlinTrkTracksElectronMCP MarlinTrkTracksPion MarlinTrkTracksPionMCP MarlinTrkTracksMuon MarlinTrkTracksMuonMCP MarlinTrkTracksMCTruthLink RecoMCTruthLink MCTruthRecoLink MCTruthClusterLink ClusterMCTruthLink </parameter>
+        <parameter name="LCIOWriteMode" type="string" value="WRITE_NEW" />
+        <!--parameter name="SplitFileSizekB" type="int" value="1992294"/-->
+    </processor>
+
+    <processor name="MyTrackSeparator" type="TrackSeparator">
+        <!--PfoAnalysis analyses output of PandoraPFANew-->
+        <!--Names of mc particle collection-->
+        <parameter name="MCParticleCollection" type="string" lcioInType="MCParticle">MCParticle</parameter>
+        <!--Names of Marlin Track Input collection-->
+        <parameter name="MarlinTrkTracksCollection" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Names of Marlin Track-mc particle collection-->
+        <parameter name="MarlinTrkTracksMCTruthLink" type="string" lcioInType="LCRelation">MarlinTrkTracksMCTruthLink</parameter>
+        <!--Names of Marlin Track-mc particle collection-->
+        <parameter name="MCTruthMarlinTrkTracksLink" type="string" lcioInType="LCRelation">MCTruthMarlinTrkTracksLink</parameter>
+        <!--Names of Marlin Track Output collection-->
+        <parameter name="MarlinTrkTracksCollectionKaon" type="string" lcioOutType="Track">TracksKaon</parameter>
+        <!--Names of Marlin Track Output collection-->
+        <parameter name="MarlinTrkTracksCollectionElectron" type="string" lcioOutType="Track">TracksElectron</parameter>
+        <!--Names of Marlin Track Output collection-->
+        <parameter name="MarlinTrkTracksCollectionProton" type="string" lcioOutType="Track">TracksProton</parameter>
+        <!--Names of Marlin Track Output collection-->
+        <parameter name="MarlinTrkTracksCollectionMuon" type="string" lcioOutType="Track">TracksMuon</parameter>
+        <!--Names of Marlin Track Output collection-->
+        <parameter name="MarlinTrkTracksCollectionPion" type="string" lcioOutType="Track">TracksPion</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionKaon" type="string" lcioOutType="MCParticle">mcpKaon</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionMuon" type="string" lcioOutType="MCParticle">mcpMuon</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionPion" type="string" lcioOutType="MCParticle">mcpPion</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionProton" type="string" lcioOutType="MCParticle">mcpProton</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionElectron" type="string" lcioOutType="MCParticle">mcpElectron</parameter>
+        <!--Names of Marlin Track Output collection-->
+        <parameter name="MarlinTrkTracksCollectionVector" type="string" lcioOutType="Track">MarlinTrkTracksCollectionVector</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionVector" type="string" lcioOutType="MCParticle">MCParticleCollectionVector</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+        <!--Name of the output root file-->
+        <!--parameter name="RootFile" type="string"> ${PfoOutputFile} </parameter-->
+    </processor>
+
+
+    <processor name="MyRefitProcessorKaon" type="RefitProcessor">
+        <!--RefitProcessor refits an input track collection, producing a new collection of tracks.-->
+        <!--Use Energy Loss in Fit-->
+        <parameter name="EnergyLossOn" type="bool">true</parameter>
+        <!--Fit direction: -1: backward [default], +1: forward-->
+        <parameter name="FitDirection" type="int">-1</parameter>
+        <!--Value used for the initial d0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorD0" type="float">1e+06</parameter>
+        <!--Value used for the initial omega variance of the trackfit-->
+        <parameter name="InitialTrackErrorOmega" type="float">0.00001</parameter>
+        <!--Value used for the initial phi0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorPhi0" type="float">100</parameter>
+        <!--Value used for the initial tanL variance of the trackfit-->
+        <parameter name="InitialTrackErrorTanL" type="float">100</parameter>
+        <!--Value used for the initial z0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorZ0" type="float">1e+06</parameter>
+        <!--TrackState to use for initialization of the fit: -1: refit from hits [default], 1: AtIP, 2: AtFirstHit, 3: AtLastHit, 4:AtCalo-->
+        <parameter name="InitialTrackState" type="int">3</parameter>
+        <!--Name of the input track collection-->
+        <parameter name="InputTrackCollectionName" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Name of the MCParticle-Track Relations collection for input tracks-->
+        <parameter name="InputTrackRelCollection" type="string" lcioInType="LCRelation" />
+        <!--Maximum Chi-squared value allowed when assigning a hit to a track-->
+        <!--  <parameter name="MaxChi2PerHit" type="float">100 </parameter>-->
+        <!--Use MultipleScattering in Fit-->
+        <!--  <parameter name="MultipleScatteringOn" type="bool">true </parameter>-->
+        <!--Name of the output track collection-->
+        <parameter name="OutputTrackCollectionName" type="string" lcioOutType="Track">MarlinTrkTracksKaon</parameter>
+        <!--Name of the MCParticle-Track Relations collection for output tracks-->
+        <parameter name="OutputTrackRelCollection" type="string" lcioOutType="LCRelation">MarlinTrkTracksKaonMCP</parameter>
+        <!--particle mass that is used in the fit - default is the pion mass: 0.13957018 )-->
+        <parameter name="ParticleMass" type="double">0.493677</parameter>
+        <!--Smooth All Mesurement Sites in Fit-->
+        <!--  <parameter name="SmoothOn" type="bool">false </parameter>-->
+        <!--Name of the track fitting system to be used (KalTest, DDKalTest, aidaTT, ... )-->
+        <parameter name="TrackSystemName" type="string">DDKalTest</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+    </processor>
+    <processor name="MyRefitProcessorProton" type="RefitProcessor">
+        <!--RefitProcessor refits an input track collection, producing a new collection of tracks.-->
+        <!--Use Energy Loss in Fit-->
+        <parameter name="EnergyLossOn" type="bool">true</parameter>
+        <!--Fit direction: -1: backward [default], +1: forward-->
+        <parameter name="FitDirection" type="int">-1</parameter>
+        <!--Value used for the initial d0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorD0" type="float">1e+06</parameter>
+        <!--Value used for the initial omega variance of the trackfit-->
+        <parameter name="InitialTrackErrorOmega" type="float">0.00001</parameter>
+        <!--Value used for the initial phi0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorPhi0" type="float">100</parameter>
+        <!--Value used for the initial tanL variance of the trackfit-->
+        <parameter name="InitialTrackErrorTanL" type="float">100</parameter>
+        <!--Value used for the initial z0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorZ0" type="float">1e+06</parameter>
+        <!--TrackState to use for initialization of the fit: -1: refit from hits [default], 1: AtIP, 2: AtFirstHit, 3: AtLastHit, 4:AtCalo-->
+        <parameter name="InitialTrackState" type="int">3</parameter>
+        <!--Name of the input track collection-->
+        <parameter name="InputTrackCollectionName" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Name of the MCParticle-Track Relations collection for input tracks-->
+        <parameter name="InputTrackRelCollection" type="string" lcioInType="LCRelation" />
+        <!--Maximum Chi-squared value allowed when assigning a hit to a track-->
+        <!--  <parameter name="MaxChi2PerHit" type="float">100 </parameter>-->
+        <!--Use MultipleScattering in Fit-->
+        <!--  <parameter name="MultipleScatteringOn" type="bool">true </parameter>-->
+        <!--Name of the output track collection-->
+        <parameter name="OutputTrackCollectionName" type="string" lcioOutType="Track">MarlinTrkTracksProton</parameter>
+        <!--Name of the MCParticle-Track Relations collection for output tracks-->
+        <parameter name="OutputTrackRelCollection" type="string" lcioOutType="LCRelation">MarlinTrkTracksProtonMCP</parameter>
+        <!--particle mass that is used in the fit - default is the pion mass: 0.13957018 )-->
+        <parameter name="ParticleMass" type="double">0.93828</parameter>
+        <!--Smooth All Mesurement Sites in Fit-->
+        <!--  <parameter name="SmoothOn" type="bool">false </parameter>-->
+        <!--Name of the track fitting system to be used (KalTest, DDKalTest, aidaTT, ... )-->
+        <parameter name="TrackSystemName" type="string">DDKalTest</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+    </processor>
+    <processor name="MyRefitProcessorElectron" type="RefitProcessor">
+        <!--RefitProcessor refits an input track collection, producing a new collection of tracks.-->
+        <!--Use Energy Loss in Fit-->
+        <parameter name="EnergyLossOn" type="bool">true</parameter>
+        <!--Fit direction: -1: backward [default], +1: forward-->
+        <parameter name="FitDirection" type="int">-1</parameter>
+        <!--Value used for the initial d0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorD0" type="float">1e+06</parameter>
+        <!--Value used for the initial omega variance of the trackfit-->
+        <parameter name="InitialTrackErrorOmega" type="float">0.00001</parameter>
+        <!--Value used for the initial phi0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorPhi0" type="float">100</parameter>
+        <!--Value used for the initial tanL variance of the trackfit-->
+        <parameter name="InitialTrackErrorTanL" type="float">100</parameter>
+        <!--Value used for the initial z0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorZ0" type="float">1e+06</parameter>
+        <!--TrackState to use for initialization of the fit: -1: refit from hits [default], 1: AtIP, 2: AtFirstHit, 3: AtLastHit, 4:AtCalo-->
+        <parameter name="InitialTrackState" type="int">3</parameter>
+        <!--Name of the input track collection-->
+        <parameter name="InputTrackCollectionName" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Name of the MCParticle-Track Relations collection for input tracks-->
+        <parameter name="InputTrackRelCollection" type="string" lcioInType="LCRelation" />
+        <!--Maximum Chi-squared value allowed when assigning a hit to a track-->
+        <!--  <parameter name="MaxChi2PerHit" type="float">100 </parameter>-->
+        <!--Use MultipleScattering in Fit-->
+        <!--  <parameter name="MultipleScatteringOn" type="bool">true </parameter>-->
+        <!--Name of the output track collection-->
+        <parameter name="OutputTrackCollectionName" type="string" lcioOutType="Track">MarlinTrkTracksElectron</parameter>
+        <!--Name of the MCParticle-Track Relations collection for output tracks-->
+        <parameter name="OutputTrackRelCollection" type="string" lcioOutType="LCRelation">MarlinTrkTracksElectronMCP</parameter>
+        <!--particle mass that is used in the fit - default is the pion mass: 0.13957018 )-->
+        <parameter name="ParticleMass" type="double">0.000511</parameter>
+        <!--Smooth All Mesurement Sites in Fit-->
+        <!--  <parameter name="SmoothOn" type="bool">false </parameter>-->
+        <!--Name of the track fitting system to be used (KalTest, DDKalTest, aidaTT, ... )-->
+        <parameter name="TrackSystemName" type="string">DDKalTest</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+    </processor>
+    <processor name="MyRefitProcessorMuon" type="RefitProcessor">
+        <!--RefitProcessor refits an input track collection, producing a new collection of tracks.-->
+        <!--Use Energy Loss in Fit-->
+        <parameter name="EnergyLossOn" type="bool">true</parameter>
+        <!--Fit direction: -1: backward [default], +1: forward-->
+        <parameter name="FitDirection" type="int">-1</parameter>
+        <!--Value used for the initial d0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorD0" type="float">1e+06</parameter>
+        <!--Value used for the initial omega variance of the trackfit-->
+        <parameter name="InitialTrackErrorOmega" type="float">0.00001</parameter>
+        <!--Value used for the initial phi0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorPhi0" type="float">100</parameter>
+        <!--Value used for the initial tanL variance of the trackfit-->
+        <parameter name="InitialTrackErrorTanL" type="float">100</parameter>
+        <!--Value used for the initial z0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorZ0" type="float">1e+06</parameter>
+        <!--TrackState to use for initialization of the fit: -1: refit from hits [default], 1: AtIP, 2: AtFirstHit, 3: AtLastHit, 4:AtCalo-->
+        <parameter name="InitialTrackState" type="int">3</parameter>
+        <!--Name of the input track collection-->
+        <parameter name="InputTrackCollectionName" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Name of the MCParticle-Track Relations collection for input tracks-->
+        <parameter name="InputTrackRelCollection" type="string" lcioInType="LCRelation" />
+        <!--Maximum Chi-squared value allowed when assigning a hit to a track-->
+        <!--  <parameter name="MaxChi2PerHit" type="float">100 </parameter>-->
+        <!--Use MultipleScattering in Fit-->
+        <!--  <parameter name="MultipleScatteringOn" type="bool">true </parameter>-->
+        <!--Name of the output track collection-->
+        <parameter name="OutputTrackCollectionName" type="string" lcioOutType="Track">MarlinTrkTracksMuon</parameter>
+        <!--Name of the MCParticle-Track Relations collection for output tracks-->
+        <parameter name="OutputTrackRelCollection" type="string" lcioOutType="LCRelation">MarlinTrkTracksMuonMCP</parameter>
+        <!--particle mass that is used in the fit - default is the pion mass: 0.13957018 )-->
+        <parameter name="ParticleMass" type="double">0.1056583745</parameter>
+        <!--Smooth All Mesurement Sites in Fit-->
+        <!--  <parameter name="SmoothOn" type="bool">false </parameter>-->
+        <!--Name of the track fitting system to be used (KalTest, DDKalTest, aidaTT, ... )-->
+        <parameter name="TrackSystemName" type="string">DDKalTest</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+    </processor>
+    <processor name="MyRefitProcessorPion" type="RefitProcessor">
+        <!--RefitProcessor refits an input track collection, producing a new collection of tracks.-->
+        <!--Use Energy Loss in Fit-->
+        <parameter name="EnergyLossOn" type="bool">true</parameter>
+        <!--Fit direction: -1: backward [default], +1: forward-->
+        <parameter name="FitDirection" type="int">-1</parameter>
+        <!--Value used for the initial d0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorD0" type="float">1e+06</parameter>
+        <!--Value used for the initial omega variance of the trackfit-->
+        <parameter name="InitialTrackErrorOmega" type="float">0.00001</parameter>
+        <!--Value used for the initial phi0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorPhi0" type="float">100</parameter>
+        <!--Value used for the initial tanL variance of the trackfit-->
+        <parameter name="InitialTrackErrorTanL" type="float">100</parameter>
+        <!--Value used for the initial z0 variance of the trackfit-->
+        <parameter name="InitialTrackErrorZ0" type="float">1e+06</parameter>
+        <!--TrackState to use for initialization of the fit: -1: refit from hits [default], 1: AtIP, 2: AtFirstHit, 3: AtLastHit, 4:AtCalo-->
+        <parameter name="InitialTrackState" type="int">3</parameter>
+        <!--Name of the input track collection-->
+        <parameter name="InputTrackCollectionName" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Name of the MCParticle-Track Relations collection for input tracks-->
+        <parameter name="InputTrackRelCollection" type="string" lcioInType="LCRelation" />
+        <!--Maximum Chi-squared value allowed when assigning a hit to a track-->
+        <!--  <parameter name="MaxChi2PerHit" type="float">100 </parameter>-->
+        <!--Use MultipleScattering in Fit-->
+        <!--  <parameter name="MultipleScatteringOn" type="bool">true </parameter>-->
+        <!--Name of the output track collection-->
+        <parameter name="OutputTrackCollectionName" type="string" lcioOutType="Track">MarlinTrkTracksPion</parameter>
+        <!--Name of the MCParticle-Track Relations collection for output tracks-->
+        <parameter name="OutputTrackRelCollection" type="string" lcioOutType="LCRelation">MarlinTrkTracksPionMCP</parameter>
+        <!--particle mass that is used in the fit - default is the pion mass: 0.13957018 )-->
+        <parameter name="ParticleMass" type="double">0.13957018</parameter>
+        <!--Smooth All Mesurement Sites in Fit-->
+        <!--  <parameter name="SmoothOn" type="bool">false </parameter>-->
+        <!--Name of the track fitting system to be used (KalTest, DDKalTest, aidaTT, ... )-->
+        <parameter name="TrackSystemName" type="string">DDKalTest</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+    </processor>
+
+    <processor name="MyTrackParameters" type="TrackParameters">
+        <!--PfoAnalysis analyses output of PandoraPFANew-->
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionVector" type="string" lcioInType="MCParticle">MCParticleCollectionVector</parameter>
+        <!--Names of input Track collection-->
+        <parameter name="MarlinTrkTracksCollection" type="string" lcioInType="Track">MarlinTrkTracks</parameter>
+        <!--Names of input Track collection-->
+        <parameter name="MarlinTrkTracksCollectionElectron" type="string" lcioInType="Track">MarlinTrkTracksElectron</parameter>
+        <!--Names of input Track collection-->
+        <parameter name="MarlinTrkTracksCollectionKaon" type="string" lcioInType="Track">MarlinTrkTracksKaon</parameter>
+        <!--Names of input Track collection-->
+        <parameter name="MarlinTrkTracksCollectionPion" type="string" lcioInType="Track">MarlinTrkTracksPion</parameter>
+        <!--Names of input Track collection-->
+        <parameter name="MarlinTrkTracksCollectionMuon" type="string" lcioInType="Track">MarlinTrkTracksMuon</parameter>
+        <!--Names of input Track collection-->
+        <parameter name="MarlinTrkTracksCollectionProton" type="string" lcioInType="Track">MarlinTrkTracksProton</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionKaon" type="string" lcioInType="MCParticle">mcpKaon</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionMuon" type="string" lcioInType="MCParticle">mcpMuon</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionPion" type="string" lcioInType="MCParticle">mcpPion</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionProton" type="string" lcioInType="MCParticle">mcpProton</parameter>
+        <!--Names of MCParticle Output collection-->
+        <parameter name="MCParticleCollectionElectron" type="string" lcioInType="MCParticle">mcpElectron</parameter>
+		<!--Name of the output root file-->
+		<parameter name="RootFile" type="string"> ${TrkOutputFile} </parameter>
+        <!--Names of Track-MCParticle Relations collection-->
+        <parameter name="MarlinTrkTracksMCTruthLink" type="string" lcioInType="LCRelation">MarlinTrkTracksMCTruthLink</parameter>
+        <!--verbosity level of this processor ("DEBUG0-4,MESSAGE0-4,WARNING0-4,ERROR0-4,SILENT")-->
+        <parameter name="Verbosity" type="string">MESSAGE</parameter>
+    </processor>
+
+</marlin>

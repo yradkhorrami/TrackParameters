@@ -19,20 +19,24 @@
 
 using namespace std;
 
-void Track_Parameters()
+void Track_Parameters_Particle_Gun()
 {
 
 ildStyle->SetOptStat(001111111);
 
-string file_dir = "/afs/desy.de/group/flc/pool/radkhory/TrackParameters/";
+int angle = 85;
+int mom = 1;
+
+//string file_dir = "/afs/desy.de/group/flc/pool/radkhory/TrackParameters/";
+string file_dir = "/nfs/dust/ilc/user/radkhory/calib_samples/TrackerSamples/ParticleGun/FitFiles/";
 string plot_dir = "/afs/desy.de/group/flc/pool/radkhory/TrackParameters/Analysis/macro/Plots/";
-TFile *file =  TFile::Open((file_dir + "TrkParameters_all.root").c_str(), "READONLY");
+TFile *file =  TFile::Open((file_dir + "Protons_Angle_" + to_string(angle) + "_Mom_" + to_string(mom) + "_Refit_TrackParameters.root").c_str(), "READONLY");
 string input_tree_name = "TrackParameters";
 TTree *tree = (TTree*)file->Get(input_tree_name.c_str());
 int nEntries = tree->GetEntries();
 
-float p_min = 4;
-float p_max = 1000;
+float p_min = 0;
+float p_max = 1;
 int true_pdg = 2212;
 
 float r_cut = 10;
@@ -120,7 +124,7 @@ if (true_pdg == 2212)
 	apar_Apion = "m_{#pi^{-}}";
 	plot_init = "Proton";
 }
-string type = ("True " + plot_init + "s").c_str();
+string type = ("True " + plot_init + "s , #theta = " + to_string(angle) + "^{o} , p = " + to_string(mom) + " GeV").c_str();
 char header_par[type.size() + 1];
 strcpy(header_par, type.c_str());
 int radi_cut = r_cut;
@@ -525,6 +529,10 @@ for (int i = 0; i < nEntries; i++)
 		}
 	}
 }
+
+double X1 = 0; double X2 = 0; double Y1 = 0; double Y2 = 0;
+
+/*
 
 TCanvas *can_residual_d0 = new TCanvas("can_residual_d0", "", 1600,1200);
 hist_residual_d0_pion_mass->Draw();
@@ -955,7 +963,7 @@ can_momentum->Update();
 can_momentum->SaveAs((plot_dir+plot_init+"_momentum.pdf").c_str());
 can_momentum->SaveAs((plot_dir+plot_init+"_momentum.C").c_str());
 
-
+*/
 
 gStyle->SetOptFit(1);
 ildStyle->SetOptStat(001111111);
@@ -966,16 +974,16 @@ int y_max = 0;
 TCanvas *can_pull_d0 = new TCanvas("can_pull_d0", "", 1600,1200);
 hist_pull_d0_true_mass->Draw();
 hist_pull_d0_pion_mass->Draw("sames");
-hist_pull_d0_true_mass_Par->Draw("sames");
-hist_pull_d0_true_mass_aPar->Draw("sames");
-hist_pull_d0_pion_mass_Par->Draw("sames");
-hist_pull_d0_pion_mass_aPar->Draw("sames");
+//hist_pull_d0_true_mass_Par->Draw("sames");
+//hist_pull_d0_true_mass_aPar->Draw("sames");
+//hist_pull_d0_pion_mass_Par->Draw("sames");
+//hist_pull_d0_pion_mass_aPar->Draw("sames");
 hist_pull_d0_pion_mass->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_pion_mass->GetFunction("gaus")->SetLineColor(2); hist_pull_d0_pion_mass->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_pion_mass->GetFunction("gaus")->SetLineWidth(1);
 hist_pull_d0_true_mass->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_true_mass->GetFunction("gaus")->SetLineColor(4); hist_pull_d0_true_mass->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_true_mass->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_d0_true_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_true_mass_Par->GetFunction("gaus")->SetLineColor(1); hist_pull_d0_true_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_true_mass_Par->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_d0_true_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_true_mass_aPar->GetFunction("gaus")->SetLineColor(6); hist_pull_d0_true_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_true_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_d0_pion_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_pion_mass_Par->GetFunction("gaus")->SetLineColor(15); hist_pull_d0_pion_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_pion_mass_Par->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_d0_pion_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_pion_mass_aPar->GetFunction("gaus")->SetLineColor(8); hist_pull_d0_pion_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_pion_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_d0_true_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_true_mass_Par->GetFunction("gaus")->SetLineColor(1); hist_pull_d0_true_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_true_mass_Par->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_d0_true_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_true_mass_aPar->GetFunction("gaus")->SetLineColor(6); hist_pull_d0_true_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_true_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_d0_pion_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_pion_mass_Par->GetFunction("gaus")->SetLineColor(15); hist_pull_d0_pion_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_pion_mass_Par->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_d0_pion_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_d0_pion_mass_aPar->GetFunction("gaus")->SetLineColor(8); hist_pull_d0_pion_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_d0_pion_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
 y_max = 1.2 * hist_pull_d0_true_mass->GetMaximum();
 hist_pull_d0_true_mass->GetYaxis()->SetRangeUser(0, y_max);
 TLine *l_n1_d0 = new TLine(-1,0,-1,y_max); l_n1_d0->SetLineColor(1); l_n1_d0->SetLineStyle(3); l_n1_d0->SetLineWidth(1);
@@ -989,62 +997,62 @@ l_0_d0->Draw("same");
 gPad->Update();
 TPaveStats *tps_pull_d0_pion_mass = (TPaveStats*)hist_pull_d0_pion_mass->FindObject("stats");
 TPaveStats *tps_pull_d0_true_mass = (TPaveStats*)hist_pull_d0_true_mass->FindObject("stats");
-TPaveStats *tps_pull_d0_true_mass_Par = (TPaveStats*)hist_pull_d0_true_mass_Par->FindObject("stats");
-TPaveStats *tps_pull_d0_true_mass_aPar = (TPaveStats*)hist_pull_d0_true_mass_aPar->FindObject("stats");
-TPaveStats *tps_pull_d0_pion_mass_Par = (TPaveStats*)hist_pull_d0_pion_mass_Par->FindObject("stats");
-TPaveStats *tps_pull_d0_pion_mass_aPar = (TPaveStats*)hist_pull_d0_pion_mass_aPar->FindObject("stats");
+//TPaveStats *tps_pull_d0_true_mass_Par = (TPaveStats*)hist_pull_d0_true_mass_Par->FindObject("stats");
+//TPaveStats *tps_pull_d0_true_mass_aPar = (TPaveStats*)hist_pull_d0_true_mass_aPar->FindObject("stats");
+//TPaveStats *tps_pull_d0_pion_mass_Par = (TPaveStats*)hist_pull_d0_pion_mass_Par->FindObject("stats");
+//TPaveStats *tps_pull_d0_pion_mass_aPar = (TPaveStats*)hist_pull_d0_pion_mass_aPar->FindObject("stats");
 tps_pull_d0_pion_mass->SetTextColor(2); tps_pull_d0_pion_mass->SetLineColor(2);
 tps_pull_d0_true_mass->SetTextColor(4); tps_pull_d0_true_mass->SetLineColor(4);
-tps_pull_d0_true_mass_Par->SetTextColor(1); tps_pull_d0_true_mass_Par->SetLineColor(1);
-tps_pull_d0_true_mass_aPar->SetTextColor(6); tps_pull_d0_true_mass_aPar->SetLineColor(6);
-tps_pull_d0_pion_mass_Par->SetTextColor(15); tps_pull_d0_pion_mass_Par->SetLineColor(15);
-tps_pull_d0_pion_mass_aPar->SetTextColor(8); tps_pull_d0_pion_mass_aPar->SetLineColor(8);
+//tps_pull_d0_true_mass_Par->SetTextColor(1); tps_pull_d0_true_mass_Par->SetLineColor(1);
+//tps_pull_d0_true_mass_aPar->SetTextColor(6); tps_pull_d0_true_mass_aPar->SetLineColor(6);
+//tps_pull_d0_pion_mass_Par->SetTextColor(15); tps_pull_d0_pion_mass_Par->SetLineColor(15);
+//tps_pull_d0_pion_mass_aPar->SetTextColor(8); tps_pull_d0_pion_mass_aPar->SetLineColor(8);
 tps_pull_d0_pion_mass->SetX1NDC(0.72); tps_pull_d0_pion_mass->SetX2NDC(0.88); tps_pull_d0_pion_mass->SetY1NDC(0.75); tps_pull_d0_pion_mass->SetY2NDC(0.9);
 X1 = tps_pull_d0_pion_mass->GetX1NDC(); X2 = tps_pull_d0_pion_mass->GetX2NDC(); Y1 = tps_pull_d0_pion_mass->GetY1NDC(); Y2 = tps_pull_d0_pion_mass->GetY2NDC();
 tps_pull_d0_true_mass->SetX1NDC(1-X2+0.1); tps_pull_d0_true_mass->SetX2NDC(1-X1+0.1); tps_pull_d0_true_mass->SetY1NDC(Y1); tps_pull_d0_true_mass->SetY2NDC(Y2);
-tps_pull_d0_true_mass_Par->SetX1NDC(1-X2+0.1); tps_pull_d0_true_mass_Par->SetX2NDC(1-X1+0.1); tps_pull_d0_true_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_d0_true_mass_Par->SetY2NDC(Y1);
-tps_pull_d0_true_mass_aPar->SetX1NDC(1-X2+0.1); tps_pull_d0_true_mass_aPar->SetX2NDC(1-X1+0.1); tps_pull_d0_true_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_d0_true_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
-tps_pull_d0_pion_mass_Par->SetX1NDC(X1); tps_pull_d0_pion_mass_Par->SetX2NDC(X2); tps_pull_d0_pion_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_d0_pion_mass_Par->SetY2NDC(Y1);
-tps_pull_d0_pion_mass_aPar->SetX1NDC(X1); tps_pull_d0_pion_mass_aPar->SetX2NDC(X2); tps_pull_d0_pion_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_d0_pion_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
+//tps_pull_d0_true_mass_Par->SetX1NDC(1-X2+0.1); tps_pull_d0_true_mass_Par->SetX2NDC(1-X1+0.1); tps_pull_d0_true_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_d0_true_mass_Par->SetY2NDC(Y1);
+//tps_pull_d0_true_mass_aPar->SetX1NDC(1-X2+0.1); tps_pull_d0_true_mass_aPar->SetX2NDC(1-X1+0.1); tps_pull_d0_true_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_d0_true_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
+//tps_pull_d0_pion_mass_Par->SetX1NDC(X1); tps_pull_d0_pion_mass_Par->SetX2NDC(X2); tps_pull_d0_pion_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_d0_pion_mass_Par->SetY2NDC(Y1);
+//tps_pull_d0_pion_mass_aPar->SetX1NDC(X1); tps_pull_d0_pion_mass_aPar->SetX2NDC(X2); tps_pull_d0_pion_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_d0_pion_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
 tps_pull_d0_pion_mass->Draw("same");
 tps_pull_d0_true_mass->Draw("same");
-tps_pull_d0_true_mass_Par->Draw("same");
-tps_pull_d0_true_mass_aPar->Draw("same");
-tps_pull_d0_pion_mass_Par->Draw("same");
-tps_pull_d0_pion_mass_aPar->Draw("same");
+//tps_pull_d0_true_mass_Par->Draw("same");
+//tps_pull_d0_true_mass_aPar->Draw("same");
+//tps_pull_d0_pion_mass_Par->Draw("same");
+//tps_pull_d0_pion_mass_aPar->Draw("same");
 TLegend *leg_pull_d0=new TLegend(X1,3 * Y1 - 2 * Y2 - 0.15,X2,3 * Y1 - 2 * Y2);
-leg_pull_d0->SetNColumns(2);
 leg_pull_d0->SetTextSize(TextSize);
+leg_pull_d0->SetNColumns(2);
 leg_pull_d0->SetHeader(header_par,"C");
-leg_pull_d0->AddEntry("",header_moment,"");
-leg_pull_d0->AddEntry("",header_wei,"");
+//leg_pull_d0->AddEntry("",header_moment,"");
+//leg_pull_d0->AddEntry("",header_wei,"C");
 leg_pull_d0->AddEntry("",header_r3D,"");
 leg_pull_d0->AddEntry("",header_r2D,"");
 leg_pull_d0->AddEntry(hist_pull_d0_pion_mass,"m_{#pi}","l");
 leg_pull_d0->AddEntry(hist_pull_d0_true_mass,true_particle,"l");
-leg_pull_d0->AddEntry(hist_pull_d0_true_mass_Par,particle,"l");
-leg_pull_d0->AddEntry(hist_pull_d0_true_mass_aPar,anti_particle,"l");
-leg_pull_d0->AddEntry(hist_pull_d0_pion_mass_Par,particle_pion,"l");
-leg_pull_d0->AddEntry(hist_pull_d0_pion_mass_aPar,anti_particle_Apion,"l");
+//leg_pull_d0->AddEntry(hist_pull_d0_true_mass_Par,particle,"l");
+//leg_pull_d0->AddEntry(hist_pull_d0_true_mass_aPar,anti_particle,"l");
+//leg_pull_d0->AddEntry(hist_pull_d0_pion_mass_Par,particle_pion,"l");
+//leg_pull_d0->AddEntry(hist_pull_d0_pion_mass_aPar,anti_particle_Apion,"l");
 leg_pull_d0->Draw("same");
 can_pull_d0->Update();
-can_pull_d0->SaveAs((plot_dir+plot_init+"_pull_d0"+momentum_stat+".pdf").c_str());
-can_pull_d0->SaveAs((plot_dir+plot_init+"_pull_d0"+momentum_stat+".C").c_str());
+can_pull_d0->SaveAs((plot_dir+plot_init+"_pull_d0_Angle_"+to_string(angle)+"_mom_"+to_string(mom)+".pdf").c_str());
+can_pull_d0->SaveAs((plot_dir+plot_init+"_pull_d0_Angle_"+to_string(angle)+"_mom_"+to_string(mom)+".C").c_str());
 
 
 TCanvas *can_pull_Omega = new TCanvas("can_pull_Omega", "", 1600,1200);
 hist_pull_Omega_true_mass->Draw();
 hist_pull_Omega_pion_mass->Draw("sames");
-hist_pull_Omega_true_mass_Par->Draw("sames");
-hist_pull_Omega_true_mass_aPar->Draw("sames");
-hist_pull_Omega_pion_mass_Par->Draw("sames");
-hist_pull_Omega_pion_mass_aPar->Draw("sames");
+//hist_pull_Omega_true_mass_Par->Draw("sames");
+//hist_pull_Omega_true_mass_aPar->Draw("sames");
+//hist_pull_Omega_pion_mass_Par->Draw("sames");
+//hist_pull_Omega_pion_mass_aPar->Draw("sames");
 hist_pull_Omega_pion_mass->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_pion_mass->GetFunction("gaus")->SetLineColor(2); hist_pull_Omega_pion_mass->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_pion_mass->GetFunction("gaus")->SetLineWidth(1);
 hist_pull_Omega_true_mass->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_true_mass->GetFunction("gaus")->SetLineColor(4); hist_pull_Omega_true_mass->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_true_mass->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_Omega_true_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_true_mass_Par->GetFunction("gaus")->SetLineColor(1); hist_pull_Omega_true_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_true_mass_Par->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_Omega_true_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_true_mass_aPar->GetFunction("gaus")->SetLineColor(6); hist_pull_Omega_true_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_true_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_Omega_pion_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_pion_mass_Par->GetFunction("gaus")->SetLineColor(15); hist_pull_Omega_pion_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_pion_mass_Par->GetFunction("gaus")->SetLineWidth(1);
-hist_pull_Omega_pion_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_pion_mass_aPar->GetFunction("gaus")->SetLineColor(8); hist_pull_Omega_pion_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_pion_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_Omega_true_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_true_mass_Par->GetFunction("gaus")->SetLineColor(1); hist_pull_Omega_true_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_true_mass_Par->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_Omega_true_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_true_mass_aPar->GetFunction("gaus")->SetLineColor(6); hist_pull_Omega_true_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_true_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_Omega_pion_mass_Par->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_pion_mass_Par->GetFunction("gaus")->SetLineColor(15); hist_pull_Omega_pion_mass_Par->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_pion_mass_Par->GetFunction("gaus")->SetLineWidth(1);
+//hist_pull_Omega_pion_mass_aPar->Fit("gaus","","",fit_min,fit_max); hist_pull_Omega_pion_mass_aPar->GetFunction("gaus")->SetLineColor(8); hist_pull_Omega_pion_mass_aPar->GetFunction("gaus")->SetLineStyle(2); hist_pull_Omega_pion_mass_aPar->GetFunction("gaus")->SetLineWidth(1);
 y_max = 1.2 * hist_pull_Omega_true_mass->GetMaximum();
 hist_pull_Omega_true_mass->GetYaxis()->SetRangeUser(0, y_max);
 TLine *l_n1_Omega = new TLine(-1,0,-1,y_max); l_n1_Omega->SetLineColor(1); l_n1_Omega->SetLineStyle(3); l_n1_Omega->SetLineWidth(1);
@@ -1058,48 +1066,49 @@ l_0_Omega->Draw("same");
 gPad->Update();
 TPaveStats *tps_pull_Omega_pion_mass = (TPaveStats*)hist_pull_Omega_pion_mass->FindObject("stats");
 TPaveStats *tps_pull_Omega_true_mass = (TPaveStats*)hist_pull_Omega_true_mass->FindObject("stats");
-TPaveStats *tps_pull_Omega_true_mass_Par = (TPaveStats*)hist_pull_Omega_true_mass_Par->FindObject("stats");
-TPaveStats *tps_pull_Omega_true_mass_aPar = (TPaveStats*)hist_pull_Omega_true_mass_aPar->FindObject("stats");
-TPaveStats *tps_pull_Omega_pion_mass_Par = (TPaveStats*)hist_pull_Omega_pion_mass_Par->FindObject("stats");
-TPaveStats *tps_pull_Omega_pion_mass_aPar = (TPaveStats*)hist_pull_Omega_pion_mass_aPar->FindObject("stats");
+//TPaveStats *tps_pull_Omega_true_mass_Par = (TPaveStats*)hist_pull_Omega_true_mass_Par->FindObject("stats");
+//TPaveStats *tps_pull_Omega_true_mass_aPar = (TPaveStats*)hist_pull_Omega_true_mass_aPar->FindObject("stats");
+//TPaveStats *tps_pull_Omega_pion_mass_Par = (TPaveStats*)hist_pull_Omega_pion_mass_Par->FindObject("stats");
+//TPaveStats *tps_pull_Omega_pion_mass_aPar = (TPaveStats*)hist_pull_Omega_pion_mass_aPar->FindObject("stats");
 tps_pull_Omega_pion_mass->SetTextColor(2); tps_pull_Omega_pion_mass->SetLineColor(2);
 tps_pull_Omega_true_mass->SetTextColor(4); tps_pull_Omega_true_mass->SetLineColor(4);
-tps_pull_Omega_true_mass_Par->SetTextColor(1); tps_pull_Omega_true_mass_Par->SetLineColor(1);
-tps_pull_Omega_true_mass_aPar->SetTextColor(6); tps_pull_Omega_true_mass_aPar->SetLineColor(6);
-tps_pull_Omega_pion_mass_Par->SetTextColor(15); tps_pull_Omega_pion_mass_Par->SetLineColor(15);
-tps_pull_Omega_pion_mass_aPar->SetTextColor(8); tps_pull_Omega_pion_mass_aPar->SetLineColor(8);
+//tps_pull_Omega_true_mass_Par->SetTextColor(1); tps_pull_Omega_true_mass_Par->SetLineColor(1);
+//tps_pull_Omega_true_mass_aPar->SetTextColor(6); tps_pull_Omega_true_mass_aPar->SetLineColor(6);
+//tps_pull_Omega_pion_mass_Par->SetTextColor(15); tps_pull_Omega_pion_mass_Par->SetLineColor(15);
+//tps_pull_Omega_pion_mass_aPar->SetTextColor(8); tps_pull_Omega_pion_mass_aPar->SetLineColor(8);
 tps_pull_Omega_pion_mass->SetX1NDC(0.72); tps_pull_Omega_pion_mass->SetX2NDC(0.88); tps_pull_Omega_pion_mass->SetY1NDC(0.75); tps_pull_Omega_pion_mass->SetY2NDC(0.9);
 X1 = tps_pull_Omega_pion_mass->GetX1NDC(); X2 = tps_pull_Omega_pion_mass->GetX2NDC(); Y1 = tps_pull_Omega_pion_mass->GetY1NDC(); Y2 = tps_pull_Omega_pion_mass->GetY2NDC();
 tps_pull_Omega_true_mass->SetX1NDC(1-X2+0.1); tps_pull_Omega_true_mass->SetX2NDC(1-X1+0.1); tps_pull_Omega_true_mass->SetY1NDC(Y1); tps_pull_Omega_true_mass->SetY2NDC(Y2);
-tps_pull_Omega_true_mass_Par->SetX1NDC(1-X2+0.1); tps_pull_Omega_true_mass_Par->SetX2NDC(1-X1+0.1); tps_pull_Omega_true_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_Omega_true_mass_Par->SetY2NDC(Y1);
-tps_pull_Omega_true_mass_aPar->SetX1NDC(1-X2+0.1); tps_pull_Omega_true_mass_aPar->SetX2NDC(1-X1+0.1); tps_pull_Omega_true_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_Omega_true_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
-tps_pull_Omega_pion_mass_Par->SetX1NDC(X1); tps_pull_Omega_pion_mass_Par->SetX2NDC(X2); tps_pull_Omega_pion_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_Omega_pion_mass_Par->SetY2NDC(Y1);
-tps_pull_Omega_pion_mass_aPar->SetX1NDC(X1); tps_pull_Omega_pion_mass_aPar->SetX2NDC(X2); tps_pull_Omega_pion_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_Omega_pion_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
+//tps_pull_Omega_true_mass_Par->SetX1NDC(1-X2+0.1); tps_pull_Omega_true_mass_Par->SetX2NDC(1-X1+0.1); tps_pull_Omega_true_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_Omega_true_mass_Par->SetY2NDC(Y1);
+//tps_pull_Omega_true_mass_aPar->SetX1NDC(1-X2+0.1); tps_pull_Omega_true_mass_aPar->SetX2NDC(1-X1+0.1); tps_pull_Omega_true_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_Omega_true_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
+//tps_pull_Omega_pion_mass_Par->SetX1NDC(X1); tps_pull_Omega_pion_mass_Par->SetX2NDC(X2); tps_pull_Omega_pion_mass_Par->SetY1NDC(Y1-(Y2-Y1)); tps_pull_Omega_pion_mass_Par->SetY2NDC(Y1);
+//tps_pull_Omega_pion_mass_aPar->SetX1NDC(X1); tps_pull_Omega_pion_mass_aPar->SetX2NDC(X2); tps_pull_Omega_pion_mass_aPar->SetY1NDC(Y1-2*(Y2-Y1)); tps_pull_Omega_pion_mass_aPar->SetY2NDC(Y1-(Y2-Y1));
 tps_pull_Omega_pion_mass->Draw("same");
 tps_pull_Omega_true_mass->Draw("same");
-tps_pull_Omega_true_mass_Par->Draw("same");
-tps_pull_Omega_true_mass_aPar->Draw("same");
-tps_pull_Omega_pion_mass_Par->Draw("same");
-tps_pull_Omega_pion_mass_aPar->Draw("same");
+//tps_pull_Omega_true_mass_Par->Draw("same");
+//tps_pull_Omega_true_mass_aPar->Draw("same");
+//tps_pull_Omega_pion_mass_Par->Draw("same");
+//tps_pull_Omega_pion_mass_aPar->Draw("same");
 TLegend *leg_pull_Omega=new TLegend(X1,3 * Y1 - 2 * Y2 - 0.15,X2,3 * Y1 - 2 * Y2);
-leg_pull_Omega->SetNColumns(2);
 leg_pull_Omega->SetTextSize(TextSize);
 leg_pull_Omega->SetHeader(header_par,"C");
-leg_pull_Omega->AddEntry("",header_moment,"");
-leg_pull_Omega->AddEntry("",header_wei,"");
+leg_pull_Omega->SetNColumns(2);
+//leg_pull_Omega->AddEntry("",header_moment,"");
+//leg_pull_Omega->AddEntry("",header_wei,"C");
 leg_pull_Omega->AddEntry("",header_r3D,"");
 leg_pull_Omega->AddEntry("",header_r2D,"");
 leg_pull_Omega->AddEntry(hist_pull_Omega_pion_mass,"m_{#pi}","l");
 leg_pull_Omega->AddEntry(hist_pull_Omega_true_mass,true_particle,"l");
-leg_pull_Omega->AddEntry(hist_pull_Omega_true_mass_Par,particle,"l");
-leg_pull_Omega->AddEntry(hist_pull_Omega_true_mass_aPar,anti_particle,"l");
-leg_pull_Omega->AddEntry(hist_pull_Omega_pion_mass_Par,particle_pion,"l");
-leg_pull_Omega->AddEntry(hist_pull_Omega_pion_mass_aPar,anti_particle_Apion,"l");
+//leg_pull_Omega->AddEntry(hist_pull_Omega_true_mass_Par,particle,"l");
+//leg_pull_Omega->AddEntry(hist_pull_Omega_true_mass_aPar,anti_particle,"l");
+//leg_pull_Omega->AddEntry(hist_pull_Omega_pion_mass_Par,particle_pion,"l");
+//leg_pull_Omega->AddEntry(hist_pull_Omega_pion_mass_aPar,anti_particle_Apion,"l");
 leg_pull_Omega->Draw("same");
 can_pull_Omega->Update();
-can_pull_Omega->SaveAs((plot_dir+plot_init+"_pull_Omega"+momentum_stat+".pdf").c_str());
-can_pull_Omega->SaveAs((plot_dir+plot_init+"_pull_Omega"+momentum_stat+".C").c_str());
+can_pull_Omega->SaveAs((plot_dir+plot_init+"_pull_Omega_Angle_"+to_string(angle)+"_mom_"+to_string(mom)+".pdf").c_str());
+can_pull_Omega->SaveAs((plot_dir+plot_init+"_pull_Omega_Angle_"+to_string(angle)+"_mom_"+to_string(mom)+".C").c_str());
 
+/*
 
 TCanvas *can_pull_Phi = new TCanvas("can_pull_Phi", "", 1600,1200);
 hist_pull_Phi_true_mass->Draw();
@@ -1278,5 +1287,5 @@ leg_pull_z0->Draw("same");
 can_pull_z0->Update();
 can_pull_z0->SaveAs((plot_dir+plot_init+"_pull_z0"+momentum_stat+".pdf").c_str());
 can_pull_z0->SaveAs((plot_dir+plot_init+"_pull_z0"+momentum_stat+".C").c_str());
-
+*/
 }

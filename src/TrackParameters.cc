@@ -461,7 +461,7 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 		const EVENT::LCCollection *relCollection = pLCEvent->getCollection(m_TrackMCParticleRelCol);
 
 		LCRelationNavigator track2mcNav(pLCEvent->getCollection( m_TrackMCParticleRelCol ));
-		streamlog_out(DEBUG) << " got track2mcNav from " << track2mcNav.getFromType() << " to " << track2mcNav.getToType() << std::endl;
+//		streamlog_out(DEBUG) << " got track2mcNav from " << track2mcNav.getFromType() << " to " << track2mcNav.getToType() << std::endl;
 
 		unsigned int ntrks = trkCollection->getNumberOfElements();
 		unsigned int ntrksPion = trkCollectionPion->getNumberOfElements();
@@ -471,20 +471,35 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 		unsigned int ntrksProton = trkCollectionProton->getNumberOfElements();
 
 		if (ntrksPion != ntrks)
+		{
 			streamlog_out(DEBUG) << " <<<<<=====  Number of Pion tracks mismatch with the number of original track  =====>>>>>" << std::endl;
-
+			streamlog_out(DEBUG) << " Number of original track = " << ntrks << std::endl;
+			streamlog_out(DEBUG) << " Number of Pion track = " << ntrksPion << std::endl;
+		}
 		if (ntrksKaon != ntrks)
+		{
 			streamlog_out(DEBUG) << " <<<<<=====  Number of Kaon tracks mismatch with the number of original track  =====>>>>>" << std::endl;
-
+			streamlog_out(DEBUG) << " Number of original track = " << ntrks << std::endl;
+			streamlog_out(DEBUG) << " Number of Kaon track = " << ntrksKaon << std::endl;
+		}
 		if (ntrksMuon != ntrks)
+		{
 			streamlog_out(DEBUG) << " <<<<<=====  Number of Muon tracks mismatch with the number of original track  =====>>>>>" << std::endl;
-
+			streamlog_out(DEBUG) << " Number of original track = " << ntrks << std::endl;
+			streamlog_out(DEBUG) << " Number of Muon track = " << ntrksMuon << std::endl;
+		}
 		if (ntrksElectron != ntrks)
+		{
 			streamlog_out(DEBUG) << " <<<<<=====  Number of Electron tracks mismatch with the number of original track  =====>>>>>" << std::endl;
-
+			streamlog_out(DEBUG) << " Number of original track = " << ntrks << std::endl;
+			streamlog_out(DEBUG) << " Number of Electron track = " << ntrksElectron << std::endl;
+		}
 		if (ntrksProton != ntrks)
+		{
 			streamlog_out(DEBUG) << " <<<<<=====  Number of Proton tracks mismatch with the number of original track  =====>>>>>" << std::endl;
-
+			streamlog_out(DEBUG) << " Number of original track = " << ntrks << std::endl;
+			streamlog_out(DEBUG) << " Number of Proton track = " << ntrksProton << std::endl;
+		}
 		float order_err = 0.1;
 		for (unsigned int i = 0; i < ntrks; ++i)
 		{
@@ -504,14 +519,14 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 				}
 			}
 			m_highest_weight.push_back(maxweight);
-			streamlog_out(DEBUG) << " ===> MCParticle with max weight for track " << i << " is " << imcpmax << std::endl ;
+//			streamlog_out(DEBUG) << " ===> MCParticle with max weight for track " << i << " is " << imcpmax << std::endl ;
 			MCParticle *mcpLinked = (MCParticle *) mcpvec.at(imcpmax);
 			m_trk_genStat.push_back(mcpLinked->getGeneratorStatus());
 			int trk_PDG = mcpLinked->getPDG();
 			m_trk_pdg.push_back(trk_PDG);
 			float trk_charge = mcpLinked->getCharge();
 			m_trk_charge.push_back(trk_charge);
-			streamlog_out(DEBUG) << " ===> PDG Code of MCParticle with max weight for track " << i << " is " << mcpLinked->getPDG() << std::endl ;
+//			streamlog_out(DEBUG) << " ===> PDG Code of MCParticle with max weight for track " << i << " is " << mcpLinked->getPDG() << std::endl ;
 			HelixClass helix;
 			float pos[3] ;
 			pos[0] = mcpLinked->getVertex()[0] ;
@@ -549,6 +564,10 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			{
 				trueTrack = dynamic_cast<EVENT::Track*>(trkCollectionMuon->getElementAt(i));
 			}
+			else if (std::abs(trk_PDG) == 211)
+			{
+				trueTrack = dynamic_cast<EVENT::Track*>(trkCollectionPion->getElementAt(i));
+			}
 			else if (std::abs(trk_PDG) == 321)
 			{
 				trueTrack = dynamic_cast<EVENT::Track*>(trkCollectionKaon->getElementAt(i));
@@ -560,6 +579,9 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			else
 			{
 				trueTrack = dynamic_cast<EVENT::Track*>(trkCollection->getElementAt(i));
+				streamlog_out(DEBUG) << " <<<<<<<<<<==========  NEW TRACK FOUND  ==========>>>>>>>>>>" << std::endl;
+				streamlog_out(DEBUG) << " <<<<<<<<<<==========  PDG of NEW TRACK ==========>>>>>>>>>>" << std::endl;
+				streamlog_out(DEBUG) << trk_PDG << std::endl;
 			}
 
 			float rec_d0_pion_mass = origTrack->getD0();
@@ -584,12 +606,17 @@ void MyTrackParameters::FindTrackParameters(EVENT::LCEvent *pLCEvent)
 			m_rec_tanLambda_true_mass.push_back(rec_tanLambda_true_mass);
 			m_rec_z0_true_mass.push_back(rec_z0_true_mass);
 
-			if (abs(rec_Omega_pion_mass - rec_Omega_true_mass) / rec_Omega_pion_mass > order_err)
+			if (abs((rec_Omega_pion_mass - rec_Omega_true_mass) / rec_Omega_pion_mass) > order_err)
+			{
 				streamlog_out(DEBUG) << " <<<<<=====  refitted track mismatch to the original track :: Omega ;  SORTING PROBLEM  =====>>>>>" << std::endl;
+				streamlog_out(DEBUG) << " Relative error on refitted Omega = " << (rec_Omega_pion_mass - rec_Omega_true_mass) / rec_Omega_pion_mass << " ### Track PDG = " << trk_PDG << std::endl;
+			}
 
-			if (abs(rec_tanLambda_pion_mass - rec_tanLambda_true_mass) / rec_tanLambda_pion_mass > order_err)
+			if (abs((rec_tanLambda_pion_mass - rec_tanLambda_true_mass) / rec_tanLambda_pion_mass) > order_err)
+			{
 				streamlog_out(DEBUG) << " <<<<<=====  refitted track mismatch to the original track :: tanLambda ;  SORTING PROBLEM  =====>>>>>" << std::endl;
-
+				streamlog_out(DEBUG) << " Relative error on refitted tanLambda = " << (rec_tanLambda_pion_mass - rec_tanLambda_true_mass) / rec_tanLambda_pion_mass << " ### Track PDG = " << trk_PDG << std::endl;
+			}
 			float residual_d0_pion_mass = rec_d0_pion_mass - d0mcp;
 			float residual_Omega_pion_mass = rec_Omega_pion_mass - ommcp;
 			float residual_Phi_pion_mass = rec_Phi_pion_mass - phmcp;
